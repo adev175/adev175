@@ -10,7 +10,6 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
-            display: none; /* Hide content until password is entered */
         }
         .container {
             width: 90%;
@@ -50,15 +49,61 @@
         .note, .schedule {
             margin-bottom: 20px;
         }
+        .edit-btn {
+            display: inline-block;
+            margin-left: 10px;
+            background: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .save-btn {
+            display: none;
+            margin-left: 10px;
+            background: #28a745;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
     <script>
         var password = prompt("Please enter the password:");
-        if (password === "yourpassword") {
+        if (password === "hi") {
             document.body.style.display = "block";
         } else {
-            document.body.innerHTML = "<h1>Access Denied</h1>";
+             document.body.innerHTML = "<h1>Access Denied</h1><p>Hint: The password is a short greeting.</p>";
+        }
+
+        function enableEdit(section) {
+            var content = section.querySelector('.content');
+            var textarea = section.querySelector('textarea');
+            var editBtn = section.querySelector('.edit-btn');
+            var saveBtn = section.querySelector('.save-btn');
+
+            textarea.value = content.innerHTML;
+            content.style.display = 'none';
+            textarea.style.display = 'block';
+            editBtn.style.display = 'none';
+            saveBtn.style.display = 'inline-block';
+        }
+
+        function saveEdit(section) {
+            var content = section.querySelector('.content');
+            var textarea = section.querySelector('textarea');
+            var editBtn = section.querySelector('.edit-btn');
+            var saveBtn = section.querySelector('.save-btn');
+
+            content.innerHTML = textarea.value;
+            content.style.display = 'block';
+            textarea.style.display = 'none';
+            editBtn.style.display = 'inline-block';
+            saveBtn.style.display = 'none';
         }
     </script>
     <header>
@@ -73,7 +118,7 @@
         <section id="about" class="section">
             <h2>About Me</h2>
             <p>Name: ĐÀO NHẬT ANH</p>
-            <p>Student ID: 22334190</p>
+            <p>Student ID: 2153289</p>
             <p>Major: Computer Science and Engineering</p>
             <p>Focus: Japan</p>
             <p>Currently interning at Nagaoka University of Technology (NUT) in Japan.</p>
@@ -82,24 +127,40 @@
             <h2>Notes</h2>
             <div class="note">
                 <h3>Note 1</h3>
-                <p>This is a sample note.</p>
+                <div class="content">This is a sample note.</div>
+                <textarea style="display:none;width:100%;height:100px;"></textarea>
+                <button class="edit-btn" onclick="enableEdit(this.parentElement)">Edit</button>
+                <button class="save-btn" onclick="saveEdit(this.parentElement)">Save</button>
             </div>
             <div class="note">
                 <h3>Note 2</h3>
-                <p>This is another sample note.</p>
+                <div class="content">This is another sample note.</div>
+                <textarea style="display:none;width:100%;height:100px;"></textarea>
+                <button class="edit-btn" onclick="enableEdit(this.parentElement)">Edit</button>
+                <button class="save-btn" onclick="saveEdit(this.parentElement)">Save</button>
             </div>
         </section>
         <section id="schedule" class="section">
             <h2>Schedule</h2>
             <div class="schedule">
                 <h3>Event 1</h3>
-                <p>Date: 2024-07-30</p>
-                <p>Description: Meeting with project advisor.</p>
+                <div class="content">
+                    <p>Date: 2024-07-30</p>
+                    <p>Description: Meeting with project advisor.</p>
+                </div>
+                <textarea style="display:none;width:100%;height:100px;"></textarea>
+                <button class="edit-btn" onclick="enableEdit(this.parentElement)">Edit</button>
+                <button class="save-btn" onclick="saveEdit(this.parentElement)">Save</button>
             </div>
             <div class="schedule">
                 <h3>Event 2</h3>
-                <p>Date: 2024-08-01</p>
-                <p>Description: Presentation preparation.</p>
+                <div class="content">
+                    <p>Date: 2024-08-01</p>
+                    <p>Description: Presentation preparation.</p>
+                </div>
+                <textarea style="display:none;width:100%;height:100px;"></textarea>
+                <button class="edit-btn" onclick="enableEdit(this.parentElement)">Edit</button>
+                <button class="save-btn" onclick="saveEdit(this.parentElement)">Save</button>
             </div>
         </section>
     </div>
