@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bùi Hồ Hải Đăng - Personal Webpage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: none; /* Hide content until password is entered */
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        nav {
+            margin-top: 10px;
+            text-align: center;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 15px;
+        }
+        .section {
+            background: #fff;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .section h2 {
+            margin-top: 0;
+        }
+        .note, .schedule {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        var password = prompt("Please enter the password:");
+        if (password === "yourpassword") {
+            document.body.style.display = "block";
+        } else {
+            document.body.innerHTML = "<h1>Access Denied</h1>";
+        }
+    </script>
+    <header>
+        <h1>Bùi Hồ Hải Đăng - Personal Webpage</h1>
+    </header>
+    <nav>
+        <a href="#about">About Me</a>
+        <a href="#notes">Notes</a>
+        <a href="#schedule">Schedule</a>
+    </nav>
+    <div class="container">
+        <section id="about" class="section">
+            <h2>About Me</h2>
+            <p>Name: ĐÀO NHẬT ANH</p>
+            <p>Student ID: 22334190</p>
+            <p>Major: Computer Science and Engineering</p>
+            <p>Focus: Japan</p>
+            <p>Currently interning at Nagaoka University of Technology (NUT) in Japan.</p>
+        </section>
+        <section id="notes" class="section">
+            <h2>Notes</h2>
+            <div class="note">
+                <h3>Note 1</h3>
+                <p>This is a sample note.</p>
+            </div>
+            <div class="note">
+                <h3>Note 2</h3>
+                <p>This is another sample note.</p>
+            </div>
+        </section>
+        <section id="schedule" class="section">
+            <h2>Schedule</h2>
+            <div class="schedule">
+                <h3>Event 1</h3>
+                <p>Date: 2024-07-30</p>
+                <p>Description: Meeting with project advisor.</p>
+            </div>
+            <div class="schedule">
+                <h3>Event 2</h3>
+                <p>Date: 2024-08-01</p>
+                <p>Description: Presentation preparation.</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
