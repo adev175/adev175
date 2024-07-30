@@ -105,11 +105,44 @@
             var editBtn = section.querySelector('.edit-btn');
             var saveBtn = section.querySelector('.save-btn');
 
-            content.innerHTML = textarea.value.replace(/\n/g, "<br>");
+            var newContent = textarea.value.replace(/\n/g, "<br>");
+            content.innerHTML = newContent;
+
+            // Lưu ghi chú vào cơ sở dữ liệu
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "save_note.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    console.log(xhr.responseText);
+                }
+            }
+            xhr.send("title=" + encodeURIComponent(section.querySelector('h3').innerText) + "&content=" + encodeURIComponent(newContent));
+
             content.style.display = 'block';
             textarea.style.display = 'none';
             editBtn.style.display = 'inline-block';
             saveBtn.style.display = 'none';
+        }
+
+        // Lấy ghi chú từ cơ sở dữ liệu khi tải trang
+        window.onload = function() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "get_notes.php", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var notes = JSON.parse(xhr.responseText);
+                    var notesSection = document.getElementById("notes");
+                    notesSection.innerHTML = '<h2>Notes</h2>';
+                    notes.forEach(function(note) {
+                        var noteDiv = document.createElement('div');
+                        noteDiv.className = 'note';
+                        noteDiv.innerHTML = '<h3>' + note.title + '</h3><div class="content">' + note.content + '</div><textarea></textarea><button class="edit-btn" onclick="enableEdit(this.parentElement)">Edit</button><button class="save-btn" onclick="saveEdit(this.parentElement)">Save</button>';
+                        notesSection.appendChild(noteDiv);
+                    });
+                }
+            }
+            xhr.send();
         }
     </script>
     <header>
@@ -131,20 +164,7 @@
         </section>
         <section id="notes" class="section">
             <h2>Notes</h2>
-            <div class="note">
-                <h3>Note 1</h3>
-                <div class="content">This is a sample note.</div>
-                <textarea></textarea>
-                <button class="edit-btn" onclick="enableEdit(this.parentElement)">Edit</button>
-                <button class="save-btn" onclick="saveEdit(this.parentElement)">Save</button>
-            </div>
-            <div class="note">
-                <h3>Note 2</h3>
-                <div class="content">This is another sample note.</div>
-                <textarea></textarea>
-                <button class="edit-btn" onclick="enableEdit(this.parentElement)">Edit</button>
-                <button class="save-btn" onclick="saveEdit(this.parentElement)">Save</button>
-            </div>
+            <!-- Các ghi chú sẽ được tải ở đây -->
         </section>
         <section id="schedule" class="section">
             <h2>Schedule</h2>
@@ -164,11 +184,4 @@
                     <p>Date: 2024-08-01</p>
                     <p>Description: Presentation preparation.</p>
                 </div>
-                <textarea></textarea>
-                <button class="edit-btn" onclick="enableEdit(this.parentElement)">Edit</button>
-                <button class="save-btn" onclick="saveEdit(this.parentElement)">Save</button>
-            </div>
-        </section>
-    </div>
-</body>
-</html>
+                <textarea></
